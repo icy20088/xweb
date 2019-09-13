@@ -1,6 +1,9 @@
 import unittest
+import sys
 
-from app import db
+sys.path.append('/home/pengfei/xweb')
+
+from app.models import db
 
 class DbTest(unittest.TestCase):
 
@@ -8,7 +11,14 @@ class DbTest(unittest.TestCase):
         pass
 
     def test_a(self):
-        pass
+        db.create_all()
+
+        fly = User(id=1,name='fly',age=30)
+        db.session.add(fly)
+        db.session.commit()
+
+        self.assertTrue(db.query.all().count,1)
+
 
     def tearDown(self):
         pass
